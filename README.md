@@ -9,4 +9,4 @@ Android app for soreco Sonos Remote Control. soreco is a hardware remote control
 
 
 ## Task List
-[Link to the Trello](https://trello.com/b/eYdj9IFY/firmware)
+[Link to the Trello](https://trello.com/b/kctubSov/android-app/)
