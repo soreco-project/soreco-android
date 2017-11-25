@@ -10,12 +10,12 @@ import ch.soreco.android.ui.BasePresenter;
 
 public class DiscoveryPresenter extends BasePresenter<DiscoveryContract.View> implements DiscoveryContract.Presenter {
     @Inject
-    public DiscoveryPresenter() {
+    DiscoveryPresenter() {
 
     }
 
     @Override
     public void bindView(DiscoveryContract.View view) {
-
+        // nothing to do yet
     }
 }

@@ -26,7 +26,6 @@ public class ViewPagerContainerFragment extends Fragment {
 
     // UI
     private ViewPager viewPager;
-    private PagerAdapter pagerAdapter;
 
     public static ViewPagerContainerFragment newInstance(ArrayList<DiscoveryLayout> pages, ViewPager.OnPageChangeListener listener) {
         Bundle bundle = new Bundle();
@@ -43,7 +42,7 @@ public class ViewPagerContainerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_view_pager, container, false);
 
-        pagerAdapter = new Adapter(getFragmentManager());
+        PagerAdapter pagerAdapter = new Adapter(getFragmentManager());
         viewPager = root.findViewById(R.id.viewpager);
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(onPageChangeListener);

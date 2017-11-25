@@ -1,7 +1,6 @@
 package ch.soreco.android.ui.discovery;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 
@@ -42,7 +41,7 @@ public class DiscoveryActivity extends BaseActivityView<DiscoveryContract.Presen
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                // nothing to do yet
             }
 
             @Override
