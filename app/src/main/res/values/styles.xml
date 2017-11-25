@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Startup application theme. -->
-    <style name="StartupTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="StartupTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Fullscreen mode -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>

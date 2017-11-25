@@ -13,6 +13,5 @@ public interface DiscoveryContract {
     }
 
     interface Presenter extends PresenterIfc<View> {
-
     }
 }
