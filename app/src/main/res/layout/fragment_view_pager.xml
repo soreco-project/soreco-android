@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         android:background="@android:color/black"
-        app:tabBackground="@drawable/tab_selector"
+        app:tabBackground="@drawable/discovery_tab_selector"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"/>
 </RelativeLayout>
