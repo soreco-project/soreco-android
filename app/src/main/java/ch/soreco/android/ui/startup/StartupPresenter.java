@@ -28,6 +28,6 @@ public class StartupPresenter extends BasePresenter<StartupContract.View> implem
     }
 
     public void startDiscoverWizard() {
-        // TODO start DiscoverActivity
+        navigator.navigateToDiscoverScreen();
     }
 }
