@@ -7,7 +7,7 @@ import ch.soreco.android.ui.setup.SetupContract;
  * Created by sandro.pedrett on 25.11.2017.
  */
 
-public interface TextStepsContract {
+public interface StepInfoContract {
     interface View extends ViewIfc<SetupContract.Presenter> {
 
     }

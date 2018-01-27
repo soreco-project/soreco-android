@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import ch.soreco.android.R;
 import ch.soreco.android.ui.BaseActivityView;
 import ch.soreco.android.ui.setup.layout.SetupLayout;
-import ch.soreco.android.ui.setup.layout.TextStepsLayout;
+import ch.soreco.android.ui.setup.layout.StepInfoLayout;
 
 /**
  * Created by sandro.pedrett on 25.11.2017.
@@ -34,8 +34,8 @@ public class SetupActivity extends BaseActivityView<SetupContract.Presenter> imp
 
     private void initializeViewPager() {
         ArrayList<SetupLayout> pages = new ArrayList<>();
-        pages.add(new TextStepsLayout());
-        pages.add(new TextStepsLayout());
+        pages.add(new StepInfoLayout());
+        pages.add(new StepInfoLayout());
 
         viewPageContainer = ViewPagerContainerFragment.newInstance(pages, new ViewPager.OnPageChangeListener() {
 

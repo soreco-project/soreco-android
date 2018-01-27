@@ -18,4 +18,13 @@
         <item name="android:layout_marginTop">40dp</item>
     </style>
 
+    <style name="SetupStepCircle">
+        <item name="android:layout_width">38dp</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:layout_marginLeft">20sp</item>
+        <item name="android:layout_marginRight">20sp</item>
+        <item name="android:background">@drawable/setup_step_circle</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>
