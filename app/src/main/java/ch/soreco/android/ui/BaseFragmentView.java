@@ -1,6 +1,8 @@
 package ch.soreco.android.ui;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.View;
 
 import javax.inject.Inject;
 
@@ -10,16 +12,21 @@ import dagger.android.support.DaggerFragment;
  * Created by sandro.pedrett on 20.11.2017.
  */
 public abstract class BaseFragmentView<PresenterT extends PresenterIfc<?>> extends DaggerFragment {
-    @Inject
     protected PresenterT presenter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         if (presenter == null) {
             throw new IllegalStateException("Presenter is not initialized. Missing @Inject on bindToPresenter.");
         }
         presenter.onCreate();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.onStop();
     }
 
     @Override
@@ -40,14 +47,9 @@ public abstract class BaseFragmentView<PresenterT extends PresenterIfc<?>> exten
         presenter.onPause();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        presenter.onStop();
+    public PresenterT getPresenter() {
+        return presenter;
     }
 
-    /**
-     * Use this to set the presenter and bind the presenter to the view.
-     */
     protected abstract void bindToPresenter(PresenterT presenter);
 }

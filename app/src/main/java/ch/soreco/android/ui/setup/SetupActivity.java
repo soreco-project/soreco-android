@@ -1,10 +1,8 @@
 package ch.soreco.android.ui.setup;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.AttributeSet;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -14,10 +12,7 @@ import javax.inject.Inject;
 import ch.soreco.android.R;
 import ch.soreco.android.ui.BaseActivityView;
 import ch.soreco.android.ui.setup.control.WizardNavigation;
-import ch.soreco.android.ui.setup.layout.SetupLayout;
-import ch.soreco.android.ui.setup.layout.StepDiscoveryLayout;
-import ch.soreco.android.ui.setup.layout.StepFinishLayout;
-import ch.soreco.android.ui.setup.layout.StepInfoLayout;
+import ch.soreco.android.ui.setup.layout.*;
 
 /**
  * Created by sandro.pedrett on 25.11.2017.
@@ -25,14 +20,14 @@ import ch.soreco.android.ui.setup.layout.StepInfoLayout;
 public class SetupActivity extends BaseActivityView<SetupContract.Presenter> implements SetupContract.View {
     private WizardNavigation wizardNavigator;
 
-    private int selectedPagePos;
+    private int lastPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
 
-        selectedPagePos = 0;
+        lastPage = 0;
 
         createViewPager();
     }
@@ -45,7 +40,7 @@ public class SetupActivity extends BaseActivityView<SetupContract.Presenter> imp
     }
 
     private void createViewPager() {
-        ArrayList<SetupLayout> pages = new ArrayList<>();
+        ArrayList<SetupStepLayout> pages = new ArrayList<>();
         pages.add(new StepInfoLayout());
         pages.add(new StepDiscoveryLayout());
         pages.add(new StepFinishLayout());
@@ -59,19 +54,18 @@ public class SetupActivity extends BaseActivityView<SetupContract.Presenter> imp
 
             @Override
             public void onPageSelected(int position) {
-                selectedPagePos = position;
+                SetupStepLayout page = wizardNavigator.getPage(lastPage);
+                if (!page.isValid()) {
+                    wizardNavigator.setPage(lastPage);
+                    return;
+                }
+
+                lastPage = position;
+                wizardNavigator.getPage(position).onActivated();
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
-                if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    SetupLayout page = wizardNavigator.getPage(selectedPagePos - 1);
-
-                    if (!page.isValid()) {
-                        wizardNavigator.setPage(selectedPagePos - 1);
-                    }
-                }
-            }
+            public void onPageScrollStateChanged(int state) { }
         });
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -83,22 +77,36 @@ public class SetupActivity extends BaseActivityView<SetupContract.Presenter> imp
         wizardNavigator.setNextAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                wizardNavigator.setPage(selectedPagePos + 1);
+                wizardNavigator.setPage(lastPage + 1);
             }
         });
         wizardNavigator.setPrevAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                wizardNavigator.setPage(selectedPagePos - 1);
+                wizardNavigator.setPage(lastPage - 1);
             }
         });
     }
 
     @Override
+    public void setCancelCallback(View.OnClickListener callback) {
+        wizardNavigator.setCancelAction(callback);
+    }
+
+    @Override
+    public void setCancelable(boolean state) {
+        if (state) {
+            wizardNavigator.enableCancelMode();
+        } else {
+            wizardNavigator.disableCancelMode();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         // only back if not first page
-        if (selectedPagePos != 0) {
-            wizardNavigator.setPage(selectedPagePos - 1);
+        if (lastPage != 0) {
+            wizardNavigator.setPage(lastPage - 1);
         }
     }
 

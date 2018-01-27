@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import ch.soreco.android.R;
 
 /**
  * Created by sandro.pedrett on 27.01.2018.
  */
-public class StepDiscoveryLayout extends SetupLayout {
+public class StepDiscoveryLayout extends SetupStepLayout<StepDiscoveryContract.Presenter> implements StepDiscoveryContract.View {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -22,6 +24,19 @@ public class StepDiscoveryLayout extends SetupLayout {
 
     @Override
     public boolean isValid() {
-        return true;
+        return presenter.isValid();
+    }
+
+    @Override
+    public void onActivated() {
+        super.onActivated();
+        presenter.discoverDevices();
+    }
+
+    @Override
+    @Inject
+    protected void bindToPresenter(StepDiscoveryContract.Presenter presenter) {
+        this.presenter = presenter;
+        this.presenter.bindView(this);
     }
 }

@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import ch.soreco.android.R;
 
 /**
  * Created by sandro.pedrett on 27.01.2018.
  */
-public class StepFinishLayout extends SetupLayout {
+public class StepFinishLayout extends SetupStepLayout<StepFinishContract.Presenter> implements StepFinishContract.View {
 
     @Nullable
     @Override
@@ -23,6 +25,13 @@ public class StepFinishLayout extends SetupLayout {
 
     @Override
     public boolean isValid() {
-        return false;
+        return presenter.isValid();
+    }
+
+    @Override
+    @Inject
+    protected void bindToPresenter(StepFinishContract.Presenter presenter) {
+        this.presenter = presenter;
+        this.presenter.bindView(this);
     }
 }

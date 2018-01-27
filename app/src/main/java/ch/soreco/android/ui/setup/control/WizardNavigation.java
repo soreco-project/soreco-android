@@ -11,12 +11,13 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AlphabetIndexer;
 import android.widget.Button;
 
 import java.util.ArrayList;
 
 import ch.soreco.android.R;
-import ch.soreco.android.ui.setup.layout.SetupLayout;
+import ch.soreco.android.ui.setup.layout.SetupStepLayout;
 
 /**
  * Created by sandro.pedrett on 27.01.2018.
@@ -24,7 +25,7 @@ import ch.soreco.android.ui.setup.layout.SetupLayout;
 
 public class WizardNavigation extends Fragment implements ViewPager.OnPageChangeListener {
     private ViewPager.OnPageChangeListener onPageChangeListener;
-    private ArrayList<SetupLayout> pages;
+    private ArrayList<SetupStepLayout> pages;
 
     private boolean isCancelMode;
 
@@ -34,7 +35,7 @@ public class WizardNavigation extends Fragment implements ViewPager.OnPageChange
     private Button prevButton;
     private Button cancelButton;
 
-    public static WizardNavigation newInstance(ArrayList<SetupLayout> pages, ViewPager.OnPageChangeListener listener) {
+    public static WizardNavigation newInstance(ArrayList<SetupStepLayout> pages, ViewPager.OnPageChangeListener listener) {
         Bundle bundle = new Bundle();
         WizardNavigation fragment = new WizardNavigation();
         fragment.setArguments(bundle);
@@ -60,11 +61,15 @@ public class WizardNavigation extends Fragment implements ViewPager.OnPageChange
 
         TabLayout tabs = root.findViewById(R.id.tabLayout);
         tabs.setupWithViewPager(viewPager, true);
+        tabs.clearOnTabSelectedListeners(); // disable click
+        tabs.setEnabled(false);
+        tabs.setSelected(false);
+        tabs.setClickable(false);
 
         return root;
     }
 
-    public SetupLayout getPage(int position) {
+    public SetupStepLayout getPage(int position) {
         if (position < 0) {
             position = 0;
         } else if (position > pages.size() - 1) {
@@ -122,7 +127,8 @@ public class WizardNavigation extends Fragment implements ViewPager.OnPageChange
     }
 
     @Override
-    public void onPageScrollStateChanged(int state) { }
+    public void onPageScrollStateChanged(int state) {
+    }
 
     private class Adapter extends FragmentStatePagerAdapter {
         private Adapter(FragmentManager fm) {
@@ -130,8 +136,13 @@ public class WizardNavigation extends Fragment implements ViewPager.OnPageChange
         }
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position) {
+        public Fragment getItem(int position) {
             return pages.get(position);
+        }
+
+        @Override
+        public void finishUpdate(ViewGroup container) {
+            super.finishUpdate(container);
         }
 
         @Override

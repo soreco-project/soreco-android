@@ -1,5 +1,7 @@
 package ch.soreco.android.ui.setup;
 
+import android.view.View;
+
 import javax.inject.Inject;
 
 import ch.soreco.android.ui.BasePresenter;
@@ -9,6 +11,8 @@ import ch.soreco.android.ui.BasePresenter;
  */
 
 public class SetupPresenter extends BasePresenter<SetupContract.View> implements SetupContract.Presenter {
+    private SetupContract.View view;
+
     @Inject
     SetupPresenter() {
 
@@ -16,6 +20,18 @@ public class SetupPresenter extends BasePresenter<SetupContract.View> implements
 
     @Override
     public void bindView(SetupContract.View view) {
-        // nothing to do yet
+        this.view = view;
+    }
+
+    @Override
+    public void enableCancelable(View.OnClickListener callback) {
+        view.setCancelable(true);
+        view.setCancelCallback(callback);
+    }
+
+    @Override
+    public void disableCancelable() {
+        view.setCancelable(false);
+        view.setCancelCallback(null);
     }
 }

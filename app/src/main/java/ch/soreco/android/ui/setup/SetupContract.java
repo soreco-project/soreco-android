@@ -1,5 +1,7 @@
 package ch.soreco.android.ui.setup;
 
+import android.view.View;
+
 import ch.soreco.android.ui.PresenterIfc;
 import ch.soreco.android.ui.ViewIfc;
 
@@ -9,9 +11,12 @@ import ch.soreco.android.ui.ViewIfc;
 
 public interface SetupContract {
     interface View extends ViewIfc<Presenter> {
-
+        void setCancelable(boolean state);
+        void setCancelCallback(android.view.View.OnClickListener callback);
     }
 
     interface Presenter extends PresenterIfc<View> {
+        void enableCancelable(android.view.View.OnClickListener callback);
+        void disableCancelable();
     }
 }
