@@ -9,16 +9,15 @@ import android.view.ViewGroup;
 import ch.soreco.android.R;
 
 /**
- * Created by sandro.pedrett on 25.11.2017.
+ * Created by sandro.pedrett on 27.01.2018.
  */
-public class StepInfoLayout extends SetupLayout {
-
+public class StepDiscoveryLayout extends SetupLayout {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        return inflater.inflate(R.layout.fragment_setup_step_info, container, false);
+        return inflater.inflate(R.layout.fragment_setup_step_discovery, container, false);
     }
 
     @Override
