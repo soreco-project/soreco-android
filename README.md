@@ -1,5 +1,7 @@
 # soreco-android app
-Android app for soreco Sonos Remote Control. soreco is a hardware remote controller for Sonos wireless home sound system, which is currently in development.
+Android app for soreco. Soreco is a hardware remote controller for Sonos wireless home sound system, which is currently in development.
+
+![App Preview](doc/app_main_screen.png)
 
 ## Builds
 | Status   | Branch       
