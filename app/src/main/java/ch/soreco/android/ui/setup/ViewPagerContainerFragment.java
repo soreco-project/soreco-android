@@ -1,4 +1,4 @@
-package ch.soreco.android.ui.discovery;
+package ch.soreco.android.ui.setup;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,19 +15,19 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import ch.soreco.android.R;
-import ch.soreco.android.ui.discovery.layout.DiscoveryLayout;
+import ch.soreco.android.ui.setup.layout.SetupLayout;
 
 /**
  * Created by sandro.pedrett on 25.11.2017.
  */
 public class ViewPagerContainerFragment extends Fragment {
     private ViewPager.OnPageChangeListener onPageChangeListener;
-    private ArrayList<DiscoveryLayout> pages;
+    private ArrayList<SetupLayout> pages;
 
     // UI
     private ViewPager viewPager;
 
-    public static ViewPagerContainerFragment newInstance(ArrayList<DiscoveryLayout> pages, ViewPager.OnPageChangeListener listener) {
+    public static ViewPagerContainerFragment newInstance(ArrayList<SetupLayout> pages, ViewPager.OnPageChangeListener listener) {
         Bundle bundle = new Bundle();
         ViewPagerContainerFragment fragment = new ViewPagerContainerFragment();
         fragment.setArguments(bundle);
@@ -53,7 +53,7 @@ public class ViewPagerContainerFragment extends Fragment {
         return root;
     }
 
-    public DiscoveryLayout getPage(int position) {
+    public SetupLayout getPage(int position) {
         return pages.get(position);
     }
 

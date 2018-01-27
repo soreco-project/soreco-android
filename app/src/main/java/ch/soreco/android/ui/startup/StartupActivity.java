@@ -24,6 +24,6 @@ public class StartupActivity extends BaseActivityView<StartupContract.Presenter>
     }
 
     public void onStartPressed(View view) {
-        presenter.startDiscoverWizard();
+        presenter.startSetupWizard();
     }
 }

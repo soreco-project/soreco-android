@@ -1,4 +1,4 @@
-package ch.soreco.android.ui.discovery.layout;
+package ch.soreco.android.ui.setup.layout;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,13 +13,18 @@ import ch.soreco.android.di.ActivityScoped;
  * Created by sandro.pedrett on 25.11.2017.
  */
 @ActivityScoped
-public class TextStepsLayout extends DiscoveryLayout {
+public class TextStepsLayout extends SetupLayout {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        return inflater.inflate(R.layout.fragment_discovery_textsteps, container, false);
+        return inflater.inflate(R.layout.fragment_setup_textsteps, container, false);
+    }
+
+    @Override
+    public boolean isValid() {
+        return false;
     }
 }

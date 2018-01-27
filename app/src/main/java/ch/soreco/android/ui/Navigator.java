@@ -5,7 +5,7 @@ import android.content.Intent;
 
 import javax.inject.Inject;
 
-import ch.soreco.android.ui.discovery.DiscoveryActivity;
+import ch.soreco.android.ui.setup.SetupActivity;
 
 /**
  * Created by sandro.pedrett on 25.11.2017.
@@ -19,8 +19,8 @@ public class Navigator implements NavigatorIfc {
     }
 
     @Override
-    public void navigateToDiscoverScreen() {
-        startIntent(DiscoveryActivity.class);
+    public void navigateToSetupScreen() {
+        startIntent(SetupActivity.class);
     }
 
     private <T> void startIntent(Class<T> clazz) {

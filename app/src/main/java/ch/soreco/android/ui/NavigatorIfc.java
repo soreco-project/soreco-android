@@ -5,5 +5,5 @@ package ch.soreco.android.ui;
  */
 
 public interface NavigatorIfc {
-    void navigateToDiscoverScreen();
+    void navigateToSetupScreen();
 }

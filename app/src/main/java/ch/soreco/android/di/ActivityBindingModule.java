@@ -1,7 +1,7 @@
 package ch.soreco.android.di;
 
-import ch.soreco.android.ui.discovery.DiscoveryActivity;
-import ch.soreco.android.ui.discovery.DiscoveryModule;
+import ch.soreco.android.ui.setup.SetupActivity;
+import ch.soreco.android.ui.setup.SetupModule;
 import ch.soreco.android.ui.startup.StartupActivity;
 import ch.soreco.android.ui.startup.StartupModule;
 
@@ -18,6 +18,6 @@ public abstract class ActivityBindingModule {
     abstract StartupActivity startupActivity();
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = DiscoveryModule.class)
-    abstract DiscoveryActivity discoveryActivity();
+    @ContributesAndroidInjector(modules = SetupModule.class)
+    abstract SetupActivity setupActivity();
 }

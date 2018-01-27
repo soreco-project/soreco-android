@@ -10,4 +10,12 @@
 
     </style>
 
+    <style name="HeaderTextStyle">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:color">@color/soreco_lightgrey</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">40dp</item>
+    </style>
+
 </resources>

@@ -27,7 +27,7 @@ public class StartupPresenter extends BasePresenter<StartupContract.View> implem
         // then go to Main
     }
 
-    public void startDiscoverWizard() {
-        navigator.navigateToDiscoverScreen();
+    public void startSetupWizard() {
+        navigator.navigateToSetupScreen();
     }
 }

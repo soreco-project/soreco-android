@@ -1,4 +1,4 @@
-package ch.soreco.android.ui.discovery;
+package ch.soreco.android.ui.setup;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -10,13 +10,13 @@ import javax.inject.Inject;
 
 import ch.soreco.android.R;
 import ch.soreco.android.ui.BaseActivityView;
-import ch.soreco.android.ui.discovery.layout.DiscoveryLayout;
-import ch.soreco.android.ui.discovery.layout.TextStepsLayout;
+import ch.soreco.android.ui.setup.layout.SetupLayout;
+import ch.soreco.android.ui.setup.layout.TextStepsLayout;
 
 /**
  * Created by sandro.pedrett on 25.11.2017.
  */
-public class DiscoveryActivity extends BaseActivityView<DiscoveryContract.Presenter> implements DiscoveryContract.View {
+public class SetupActivity extends BaseActivityView<SetupContract.Presenter> implements SetupContract.View {
     private ViewPagerContainerFragment viewPageContainer;
 
     private int selectedPagePos;
@@ -24,7 +24,7 @@ public class DiscoveryActivity extends BaseActivityView<DiscoveryContract.Presen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_discovery);
+        setContentView(R.layout.activity_setup);
 
         selectedPagePos = 0;
 
@@ -33,7 +33,7 @@ public class DiscoveryActivity extends BaseActivityView<DiscoveryContract.Presen
     }
 
     private void initializeViewPager() {
-        ArrayList<DiscoveryLayout> pages = new ArrayList<>();
+        ArrayList<SetupLayout> pages = new ArrayList<>();
         pages.add(new TextStepsLayout());
         pages.add(new TextStepsLayout());
 
@@ -51,7 +51,13 @@ public class DiscoveryActivity extends BaseActivityView<DiscoveryContract.Presen
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                // TODO check if page are valid
+                if (state == ViewPager.SCROLL_STATE_IDLE) {
+                    SetupLayout page = viewPageContainer.getPage(selectedPagePos);
+
+                    if (!page.isValid()) {
+                        viewPageContainer.setPage(selectedPagePos - 1);
+                    }
+                }
             }
         });
     }
@@ -72,7 +78,7 @@ public class DiscoveryActivity extends BaseActivityView<DiscoveryContract.Presen
 
     @Override
     @Inject
-    protected void bindToPresenter(DiscoveryContract.Presenter presenter) {
+    protected void bindToPresenter(SetupContract.Presenter presenter) {
         this.presenter = presenter;
         this.presenter.bindView(this);
     }

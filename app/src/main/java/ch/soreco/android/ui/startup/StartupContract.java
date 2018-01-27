@@ -13,6 +13,6 @@ public interface StartupContract {
     }
 
     interface Presenter extends PresenterIfc<View> {
-        void startDiscoverWizard();
+        void startSetupWizard();
     }
 }
