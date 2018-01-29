@@ -10,10 +10,12 @@ import ch.soreco.android.ui.ViewIfc;
 public interface StepDiscoveryContract {
     interface View extends ViewIfc<Presenter> {
 
+        void showError(String message);
+        void setPercent(float percent);
     }
 
     interface Presenter extends PresenterIfc<View> {
-        void discoverDevices();
+        void discoveryExecute();
         void cancelDiscovery();
 
         boolean isValid();

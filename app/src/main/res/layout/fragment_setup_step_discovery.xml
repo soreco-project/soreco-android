@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
@@ -11,4 +12,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Discovery" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="300sp"
+            android:layout_height="270sp"
+            android:contentDescription="soreco discovery"
+            android:src="@drawable/soreco_case" />
+
+        <ch.soreco.android.ui.setup.control.CircleProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="300sp"
+            android:layout_height="300sp"
+            app:progressBarThickness="2dp"/>
+    </RelativeLayout>
+
 </LinearLayout>

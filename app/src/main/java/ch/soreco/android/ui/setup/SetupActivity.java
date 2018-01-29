@@ -94,6 +94,16 @@ public class SetupActivity extends BaseActivityView<SetupContract.Presenter> imp
     }
 
     @Override
+    public void nextPage() {
+        wizardNavigator.setPage(lastPage + 1);
+    }
+
+    @Override
+    public void prevPage() {
+        wizardNavigator.setPage(lastPage - 1);
+    }
+
+    @Override
     public void setCancelable(boolean state) {
         if (state) {
             wizardNavigator.enableCancelMode();

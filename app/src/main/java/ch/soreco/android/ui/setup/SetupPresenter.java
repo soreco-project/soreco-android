@@ -4,6 +4,7 @@ import android.view.View;
 
 import javax.inject.Inject;
 
+import ch.soreco.android.model.SorecoDevice;
 import ch.soreco.android.ui.BasePresenter;
 
 /**
@@ -33,5 +34,20 @@ public class SetupPresenter extends BasePresenter<SetupContract.View> implements
     public void disableCancelable() {
         view.setCancelable(false);
         view.setCancelCallback(null);
+    }
+
+    @Override
+    public void nextPage() {
+        view.nextPage();
+    }
+
+    @Override
+    public void prevPage() {
+        view.prevPage();
+    }
+
+    @Override
+    public void setDevice(SorecoDevice device) {
+
     }
 }
