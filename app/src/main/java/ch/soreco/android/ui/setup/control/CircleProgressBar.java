@@ -9,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 
 import ch.soreco.android.R;
@@ -124,17 +126,20 @@ public class CircleProgressBar extends View {
         foregroundPaint.setColor(color);
         foregroundPaint.setStyle(Paint.Style.STROKE);
         foregroundPaint.setStrokeWidth(strokeWidth);
+
+        if (isIntermediate) {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.rotate);
+            animation.setDuration(3000);
+            startAnimation(animation);
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        float angle = 0;
+        float angle = 250;
 
-        if (isIntermediate) {
-            startAngle = startAngle + 10;
-            angle = 250;
-        } else {
+        if (!isIntermediate) {
             canvas.drawOval(rectF, backgroundPaint);
             angle = 360 * progress / max;
         }
