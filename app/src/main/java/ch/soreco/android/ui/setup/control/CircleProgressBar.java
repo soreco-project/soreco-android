@@ -26,6 +26,7 @@ public class CircleProgressBar extends View {
     private float progress = 0;
     private int min = 0;
     private int max = 100;
+    private boolean isIntermediate = false;
     /**
      * Start the progress at 12 o'clock
      */
@@ -45,6 +46,14 @@ public class CircleProgressBar extends View {
         foregroundPaint.setStrokeWidth(strokeWidth);
         invalidate();
         requestLayout();//Because it should recalculate its bounds
+    }
+
+    public boolean isIntermediate() {
+        return isIntermediate;
+    }
+
+    public void setIntermediate(boolean intermediate) {
+        isIntermediate = intermediate;
     }
 
     public float getProgress() {
@@ -101,6 +110,7 @@ public class CircleProgressBar extends View {
             color = typedArray.getInt(R.styleable.CircleProgressBar_progressbarColor, color);
             min = typedArray.getInt(R.styleable.CircleProgressBar_min, min);
             max = typedArray.getInt(R.styleable.CircleProgressBar_max, max);
+            isIntermediate = typedArray.getBoolean(R.styleable.CircleProgressBar_isIntermediate, isIntermediate);
         } finally {
             typedArray.recycle();
         }
@@ -119,9 +129,16 @@ public class CircleProgressBar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        float angle = 0;
 
-        canvas.drawOval(rectF, backgroundPaint);
-        float angle = 360 * progress / max;
+        if (isIntermediate) {
+            startAngle = startAngle + 10;
+            angle = 250;
+        } else {
+            canvas.drawOval(rectF, backgroundPaint);
+            angle = 360 * progress / max;
+        }
+
         canvas.drawArc(rectF, startAngle, angle, false, foregroundPaint);
     }
 

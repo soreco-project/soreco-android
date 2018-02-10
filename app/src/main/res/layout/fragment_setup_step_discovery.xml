@@ -28,6 +28,7 @@
             android:id="@+id/progressBar"
             android:layout_width="300sp"
             android:layout_height="300sp"
+            app:isIntermediate="true"
             app:progressBarThickness="2dp"/>
     </RelativeLayout>
 

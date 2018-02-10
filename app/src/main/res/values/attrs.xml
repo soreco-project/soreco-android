@@ -6,5 +6,6 @@
         <attr name="progress" format="integer" />
         <attr name="progressbarColor" format="color" />
         <attr name="progressBarThickness" format="dimension" />
+        <attr name="isIntermediate" format="boolean" />
     </declare-styleable>
 </resources>
