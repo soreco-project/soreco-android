@@ -43,7 +43,9 @@ public class StepDiscoveryPresenter extends BasePresenter<StepDiscoveryContract.
     public void discoveryExecute() {
         wizardPresenter.enableCancelable(cancelAction);
 
-        discoveryManager.findSorecoDevicesAsync(this, view);
+        if (!discoveryManager.isRunning()) {
+            discoveryManager.findSorecoDevicesAsync(this, view);
+        }
     }
 
     @Override
@@ -67,7 +69,13 @@ public class StepDiscoveryPresenter extends BasePresenter<StepDiscoveryContract.
             wizardPresenter.disableCancelable();
             wizardPresenter.prevPage();
             view.showMessage("No devices found. Make sure your soreco is running.");
+            return;
         }
+
+        // get first device
+        wizardPresenter.setDevice(devices.get(0));
+        wizardPresenter.disableCancelable();
+        wizardPresenter.nextPage();
     }
 
     @Override

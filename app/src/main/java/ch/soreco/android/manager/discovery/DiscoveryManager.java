@@ -23,6 +23,10 @@ import ch.soreco.android.model.SorecoDeviceProfile;
  * Created by sandro.pedrett on 29.01.2018.
  */
 public class DiscoveryManager implements DiscoveryManagerIfc, DiscoveryManagerIfc.WifiPermissionHandlerListener {
+    // be sure that these consts are matches with the firmware
+    private static final String SSID_PREFIX = "soreco-";
+    private static final String DEFAULT_SORECO_PW = "abcd1234";
+
     private final Context context;
     private final WifiManager wifiManager;
     private final WifiBroadcastReceiver wifiBroadcastReceiver;
@@ -62,30 +66,39 @@ public class DiscoveryManager implements DiscoveryManagerIfc, DiscoveryManagerIf
 
     @Override
     public void onWifiScanResult(List<ScanResult> result) {
-        List<SorecoDeviceProfile> profiles = new ArrayList<>();
+        // stop service
+        unregisterBroadcast();
 
+        List<SorecoDeviceProfile> profiles = new ArrayList<>();
         for (ScanResult scan : result) {
             if (isWifiASorecoDevice(scan)) {
                 final WifiConfiguration configuration = new WifiConfiguration();
-                configuration.SSID = scan.SSID;
-                configuration.preSharedKey = "PW";
+                // Please note the quotes. String should contain ssid in quotes
+                configuration.SSID = "\"" + scan.SSID + "\"";
+                configuration.preSharedKey = "\"" + DEFAULT_SORECO_PW + "\"";
+
                 configuration.status = WifiConfiguration.Status.ENABLED;
+                configuration.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+                configuration.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
                 configuration.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
+                configuration.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
+                configuration.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
+                configuration.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
+                configuration.networkId = wifiManager.addNetwork(configuration);
 
                 SorecoDeviceProfile profile = new SorecoDeviceProfile();
                 profile.setHotspotAuthentication(configuration);
+
+                profiles.add(profile);
             }
         }
 
-        // stop service
         this.isRunning = false;
-        unregisterBroadcast();
-
         listener.onSorecoDevicesFound(profiles);
     }
 
     private boolean isWifiASorecoDevice(ScanResult result) {
-        return result.SSID.startsWith("soreco-");
+        return result.SSID.startsWith(SSID_PREFIX);
     }
 
     private void registerBroadcast() {
