@@ -1,5 +1,6 @@
 package ch.soreco.android.ui.setup.layout;
 
+import ch.soreco.android.manager.discovery.DiscoveryManagerIfc;
 import ch.soreco.android.ui.PresenterIfc;
 import ch.soreco.android.ui.ViewIfc;
 
@@ -8,10 +9,8 @@ import ch.soreco.android.ui.ViewIfc;
  */
 
 public interface StepDiscoveryContract {
-    interface View extends ViewIfc<Presenter> {
-
-        void showError(String message);
-        void setPercent(float percent);
+    interface View extends ViewIfc<Presenter>, DiscoveryManagerIfc.WifiPermissionHandler {
+        void showMessage(String message);
     }
 
     interface Presenter extends PresenterIfc<View> {

@@ -19,6 +19,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
         ApplicationModule.class,
         ActivityBindingModule.class,
         AndroidSupportInjectionModule.class,
+        ServiceModule.class,
         UiModule.class
 })
 public interface AppComponent extends AndroidInjector<SorecoAppplication> {

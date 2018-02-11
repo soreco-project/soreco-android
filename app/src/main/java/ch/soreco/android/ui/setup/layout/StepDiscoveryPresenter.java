@@ -2,10 +2,12 @@ package ch.soreco.android.ui.setup.layout;
 
 import android.view.View;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
-import ch.soreco.android.discovery.DiscoveryManagerIfc;
-import ch.soreco.android.model.SorecoDevice;
+import ch.soreco.android.manager.discovery.DiscoveryManagerIfc;
+import ch.soreco.android.model.SorecoDeviceProfile;
 import ch.soreco.android.ui.BasePresenter;
 import ch.soreco.android.ui.setup.SetupContract;
 
@@ -25,7 +27,6 @@ public class StepDiscoveryPresenter extends BasePresenter<StepDiscoveryContract.
         }
     };
     private StepDiscoveryContract.View view;
-    private boolean isCanceled;
 
     @Inject
     StepDiscoveryPresenter(final SetupContract.Presenter wizardPresenter, final DiscoveryManagerIfc discoveryManager) {
@@ -40,50 +41,40 @@ public class StepDiscoveryPresenter extends BasePresenter<StepDiscoveryContract.
 
     @Override
     public void discoveryExecute() {
-        isCanceled = false;
         wizardPresenter.enableCancelable(cancelAction);
 
-        task = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                for (int i = 0; i <= 100; i++) {
-                    if (isCanceled) {
-                        return;
-                    }
-                    view.setPercent(i);
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-
-            }
-        });
-        task.start();
+        discoveryManager.findSorecoDevicesAsync(this, view);
     }
 
     @Override
     public void cancelDiscovery() {
-        isCanceled = true;
-        view.showError("Discovery canceled");
+        view.showMessage("Discovery canceled");
 
-        try {
-            task.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        discoveryManager.cancel();
+
         wizardPresenter.disableCancelable();
-
         wizardPresenter.prevPage();
     }
 
     @Override
     public boolean isValid() {
-        return !task.isAlive();
+        return !discoveryManager.isRunning();
     }
 
-    private Thread task;
+    @Override
+    public void onSorecoDevicesFound(List<SorecoDeviceProfile> devices) {
+        if (devices.size() == 0) {
+            wizardPresenter.disableCancelable();
+            wizardPresenter.prevPage();
+            view.showMessage("No devices found. Make sure your soreco is running.");
+        }
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+        wizardPresenter.disableCancelable();
+        wizardPresenter.prevPage();
+
+        view.showMessage(throwable.getMessage());
+    }
 }

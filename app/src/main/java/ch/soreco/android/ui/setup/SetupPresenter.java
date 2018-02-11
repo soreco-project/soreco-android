@@ -4,7 +4,7 @@ import android.view.View;
 
 import javax.inject.Inject;
 
-import ch.soreco.android.model.SorecoDevice;
+import ch.soreco.android.model.SorecoDeviceProfile;
 import ch.soreco.android.ui.BasePresenter;
 
 /**
@@ -47,7 +47,7 @@ public class SetupPresenter extends BasePresenter<SetupContract.View> implements
     }
 
     @Override
-    public void setDevice(SorecoDevice device) {
+    public void setDevice(SorecoDeviceProfile device) {
 
     }
 }
