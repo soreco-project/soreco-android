@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.setup.SetupActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.home.HomeActivity" />
     </application>
 
 </manifest>

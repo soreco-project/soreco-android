@@ -1,5 +1,7 @@
 package ch.soreco.android.di;
 
+import ch.soreco.android.ui.home.HomeActivity;
+import ch.soreco.android.ui.home.HomeModule;
 import ch.soreco.android.ui.setup.SetupActivity;
 import ch.soreco.android.ui.setup.SetupModule;
 import ch.soreco.android.ui.startup.StartupActivity;
@@ -20,4 +22,8 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = SetupModule.class)
     abstract SetupActivity setupActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = HomeModule.class)
+    abstract HomeActivity homeActivity();
 }

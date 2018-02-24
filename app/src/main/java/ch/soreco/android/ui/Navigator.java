@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import javax.inject.Inject;
 
+import ch.soreco.android.ui.home.HomeActivity;
 import ch.soreco.android.ui.setup.SetupActivity;
 
 /**
@@ -25,7 +26,7 @@ public class Navigator implements NavigatorIfc {
 
     @Override
     public void navigateToHomeScreen() {
-        // TODO
+        startIntent(HomeActivity.class);
     }
 
     private <T> void startIntent(Class<T> clazz) {

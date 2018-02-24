@@ -5,6 +5,7 @@ import android.view.View;
 
 import javax.inject.Inject;
 
+import ch.soreco.android.manager.device.SorecoDeviceManagerIfc;
 import ch.soreco.android.model.SorecoDeviceProfile;
 import ch.soreco.android.ui.BasePresenter;
 import ch.soreco.android.ui.NavigatorIfc;
@@ -16,14 +17,16 @@ import ch.soreco.android.ui.NavigatorIfc;
 public class SetupPresenter extends BasePresenter<SetupContract.View> implements SetupContract.Presenter {
     private SetupContract.View view;
     private NavigatorIfc navigator;
-    private SorecoDeviceProfile device;
+    private SorecoDeviceManagerIfc deviceManager;
 
+    private SorecoDeviceProfile device;
     private WifiConfiguration wifiConfiguration;
     private String password;
 
     @Inject
-    SetupPresenter(final NavigatorIfc navigator) {
+    SetupPresenter(final NavigatorIfc navigator, final SorecoDeviceManagerIfc deviceManager) {
         this.navigator = navigator;
+        this.deviceManager = deviceManager;
     }
 
     @Override
@@ -66,10 +69,13 @@ public class SetupPresenter extends BasePresenter<SetupContract.View> implements
 
     @Override
     public void finish() {
-        // setup device
-        // 1) deviceManager.initialize(device);
-        // 2) deviceManager.publishWifiConfig(callback);
-        // 3) callback -> navigator.navigateToHomeScreen();
+        deviceManager.initialize(device);
+
+        String ssid = wifiConfiguration.SSID.replace("\"", "");
+        deviceManager.publishWifiConfig(ssid, password);
+        deviceManager.reset();
+
+        navigator.navigateToHomeScreen();
     }
 
     @Override
