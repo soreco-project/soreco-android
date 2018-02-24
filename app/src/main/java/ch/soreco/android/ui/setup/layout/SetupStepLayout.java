@@ -13,4 +13,6 @@ public abstract class SetupStepLayout<T extends PresenterIfc<?>> extends BaseFra
     public abstract boolean isValid();
 
     public void onActivated() {}
+
+    public void commit() {}
 }

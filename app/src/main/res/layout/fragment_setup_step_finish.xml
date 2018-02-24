@@ -11,4 +11,68 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Completion" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        android:text="Connect your soreco to your WLAN network." />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/ssidSpinnerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="SSID"
+                    android:textColor="#777777" />
+
+                <Spinner
+                    android:id="@+id/ssidSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ssidSpinnerText"
+                    android:layout_marginTop="5sp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/ssidPasswordText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Password"
+                    android:textColor="#777777" />
+
+                <EditText
+                    android:id="@+id/ssidPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:layout_below="@+id/ssidPasswordText"
+                    android:inputType="textPassword"
+                    android:layout_marginTop="5sp"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+
 </LinearLayout>

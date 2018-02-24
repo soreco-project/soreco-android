@@ -23,6 +23,11 @@ public class Navigator implements NavigatorIfc {
         startIntent(SetupActivity.class);
     }
 
+    @Override
+    public void navigateToHomeScreen() {
+        // TODO
+    }
+
     private <T> void startIntent(Class<T> clazz) {
         if (context != null) {
             startIntent(new Intent(context, clazz));

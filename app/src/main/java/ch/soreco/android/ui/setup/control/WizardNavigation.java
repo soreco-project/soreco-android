@@ -28,6 +28,7 @@ public class WizardNavigation extends Fragment implements ViewPager.OnPageChange
     private ArrayList<SetupStepLayout> pages;
 
     private boolean isCancelMode;
+    private boolean isLastPage;
 
     // UI
     private ViewPager viewPager;
@@ -112,6 +113,10 @@ public class WizardNavigation extends Fragment implements ViewPager.OnPageChange
         viewPager.setCurrentItem(position);
     }
 
+    public boolean isLastPage() {
+        return isLastPage;
+    }
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -124,10 +129,22 @@ public class WizardNavigation extends Fragment implements ViewPager.OnPageChange
         } else if (!isCancelMode) {
             prevButton.setVisibility(View.VISIBLE);
         }
+
+        isLastPage = position  == size() - 1;
+        if (isLastPage) {
+            nextButton.setText(R.string.setup_wizard_finish);
+        } else {
+            nextButton.setText(R.string.setup_wizard_next);
+        }
+
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
+    }
+
+    public int size() {
+        return pages.size();
     }
 
     private class Adapter extends FragmentStatePagerAdapter {

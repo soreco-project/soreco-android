@@ -2,6 +2,7 @@ package ch.soreco.android.manager.discovery;
 
 
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiConfiguration;
 
 import java.util.List;
 
@@ -21,6 +22,8 @@ public interface DiscoveryManagerIfc {
      * Cancel async search.
      */
     void cancel();
+
+    List<WifiConfiguration> getWifiConfigurations();
 
     /**
      * @return true if discover task is running, otherwise false

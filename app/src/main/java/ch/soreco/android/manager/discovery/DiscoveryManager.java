@@ -65,6 +65,11 @@ public class DiscoveryManager implements DiscoveryManagerIfc, DiscoveryManagerIf
     }
 
     @Override
+    public List<WifiConfiguration> getWifiConfigurations() {
+        return wifiManager.getConfiguredNetworks();
+    }
+
+    @Override
     public void onWifiScanResult(List<ScanResult> result) {
         // stop service
         unregisterBroadcast();

@@ -55,7 +55,8 @@ public class SetupActivity extends BaseActivityView<SetupContract.Presenter> imp
             @Override
             public void onPageSelected(int position) {
                 SetupStepLayout page = wizardNavigator.getPage(lastPage);
-                if (!page.isValid()) {
+                // validation if next page
+                if (lastPage < position && !page.isValid()) {
                     wizardNavigator.setPage(lastPage);
                     return;
                 }
@@ -77,6 +78,14 @@ public class SetupActivity extends BaseActivityView<SetupContract.Presenter> imp
         wizardNavigator.setNextAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SetupStepLayout currentStep = wizardNavigator.getPage(lastPage);
+
+                currentStep.commit();
+                if (wizardNavigator.isLastPage() && currentStep.isValid()) {
+                    presenter.finish();
+                    return;
+                }
+
                 wizardNavigator.setPage(lastPage + 1);
             }
         });

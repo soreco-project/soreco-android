@@ -1,5 +1,7 @@
 package ch.soreco.android.ui.setup;
 
+import android.net.wifi.WifiConfiguration;
+
 import ch.soreco.android.model.SorecoDeviceProfile;
 import ch.soreco.android.ui.PresenterIfc;
 import ch.soreco.android.ui.ViewIfc;
@@ -25,5 +27,11 @@ public interface SetupContract {
         void prevPage();
 
         void setDevice(SorecoDeviceProfile device);
+        void setWifiConfiguration(WifiConfiguration item, String password);
+
+        void finish();
+
+        boolean isValid();
+
     }
 }

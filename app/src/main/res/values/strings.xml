@@ -1,6 +1,13 @@
 <resources>
+    <!-- Application strings -->
     <string name="app_name">soreco</string>
 
     <string name="startup.start">Start</string>
     <string name="startup.copyright">© soreco 2018</string>
+
+    <!-- Setup -->
+    <string name="setup.wizard.finish">Finish</string>
+    <string name="setup.wizard.cancel">Cancel</string>
+    <string name="setup.wizard.next">Next</string>
+    <string name="setup.wizard.prev">Prev</string>
 </resources>
