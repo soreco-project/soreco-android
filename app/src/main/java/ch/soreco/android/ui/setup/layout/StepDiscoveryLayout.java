@@ -88,11 +88,6 @@ public class StepDiscoveryLayout extends SetupStepLayout<StepDiscoveryContract.P
     }
 
     @Override
-    public WifiControllerIfc.WifiPermissionCallback requestWifiScanCallback() {
-        return presenter;
-    }
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case COARSE_LOCATION_CODE:

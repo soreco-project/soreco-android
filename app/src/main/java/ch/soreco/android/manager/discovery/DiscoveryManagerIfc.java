@@ -12,7 +12,7 @@ import ch.soreco.android.model.SorecoDeviceProfile;
 /**
  * Created by sandro.pedrett on 29.01.2018.
  */
-public interface DiscoveryManagerIfc {
+public interface DiscoveryManagerIfc extends WifiControllerIfc.WifiPermissionCallback  {
     /**
      * Search for soreco wifi SSID async.
      * @see Listener#onSorecoDevicesFound(List)

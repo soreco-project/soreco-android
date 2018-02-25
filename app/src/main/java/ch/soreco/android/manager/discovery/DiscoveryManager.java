@@ -41,7 +41,7 @@ public class DiscoveryManager implements DiscoveryManagerIfc, WifiControllerIfc.
         this.listener = callback;
 
         wifiController.enableWifi();
-        wifiController.startWifiScan(permissionHandler);
+        wifiController.startWifiScan(permissionHandler, this);
     }
 
     @Override

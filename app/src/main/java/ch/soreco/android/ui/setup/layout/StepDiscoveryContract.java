@@ -13,7 +13,7 @@ public interface StepDiscoveryContract {
         void showMessage(String message);
     }
 
-    interface Presenter extends PresenterIfc<View>, WifiControllerIfc.WifiPermissionCallback {
+    interface Presenter extends PresenterIfc<View> {
         void discoveryExecute();
         void cancelDiscovery();
 

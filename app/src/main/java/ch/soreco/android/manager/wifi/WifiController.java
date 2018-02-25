@@ -21,6 +21,7 @@ public class WifiController implements WifiControllerIfc {
     private final WifiBroadcastReceiver wifiBroadcastReceiver;
 
     private WifiPermissionHandler permissionHandler;
+    private WifiPermissionCallback callback;
 
     @Inject
     public WifiController(final Context context) {
@@ -37,8 +38,10 @@ public class WifiController implements WifiControllerIfc {
     }
 
     @Override
-    public void startWifiScan(WifiPermissionHandler permissionHandler) {
+    public void startWifiScan(WifiPermissionHandler permissionHandler, WifiPermissionCallback callback) {
         this.permissionHandler = permissionHandler;
+        this.callback = callback;
+
         registerBroadcast();
 
         if (!wifiManager.isWifiEnabled()){
@@ -51,6 +54,11 @@ public class WifiController implements WifiControllerIfc {
     @Override
     public void cancelWifiScan() {
         unregisterBroadcast();
+    }
+
+    @Override
+    public boolean connectTo(WifiConfiguration config) {
+        return wifiManager.enableNetwork(config.networkId, false);
     }
 
     @Override
@@ -87,7 +95,7 @@ public class WifiController implements WifiControllerIfc {
             unregisterBroadcast();
 
             if (permissionHandler != null) {
-                permissionHandler.requestWifiScanResult(permissionHandler.requestWifiScanCallback());
+                permissionHandler.requestWifiScanResult(callback);
             }
         }
     }

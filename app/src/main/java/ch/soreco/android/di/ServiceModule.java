@@ -29,4 +29,8 @@ public abstract class ServiceModule {
     @Singleton
     @Binds
     abstract WifiControllerIfc wifiController(WifiController manager);
+
+    @Singleton
+    @Binds
+    abstract RemoteStackIfc remoteController(RemoteStack manager);
 }

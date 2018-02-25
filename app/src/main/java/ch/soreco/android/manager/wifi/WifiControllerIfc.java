@@ -12,17 +12,15 @@ import java.util.List;
 public interface WifiControllerIfc {
 
     void enableWifi();
-    void startWifiScan(WifiPermissionHandler permissionHandler);
+    void startWifiScan(WifiPermissionHandler permissionHandler, WifiPermissionCallback callback);
     void cancelWifiScan();
-
+    boolean connectTo(WifiConfiguration config);
     int addNetwork(WifiConfiguration configuration);
-
     List<WifiConfiguration> getConfiguredNetworks();
+
 
     interface WifiPermissionHandler {
         void requestWifiScanResult(final WifiPermissionCallback handler);
-
-        WifiPermissionCallback requestWifiScanCallback();
     }
 
     interface WifiPermissionCallback {
