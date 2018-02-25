@@ -7,7 +7,13 @@ import android.net.wifi.WifiConfiguration;
  */
 
 public class SorecoDeviceProfile {
-    public void setHotspotAuthentication(WifiConfiguration configuration) {
+    private WifiConfiguration configuration;
 
+    public void setHotspotAuthentication(WifiConfiguration configuration) {
+        this.configuration = configuration;
+    }
+
+    public WifiConfiguration getConfiguration() {
+        return configuration;
     }
 }

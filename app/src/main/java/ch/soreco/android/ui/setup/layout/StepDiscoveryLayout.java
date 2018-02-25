@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ import android.widget.Toast;
 import javax.inject.Inject;
 
 import ch.soreco.android.R;
-import ch.soreco.android.manager.discovery.DiscoveryManagerIfc;
+import ch.soreco.android.manager.wifi.WifiControllerIfc;
 
 /**
  * Created by sandro.pedrett on 27.01.2018.
@@ -30,7 +31,7 @@ public class StepDiscoveryLayout extends SetupStepLayout<StepDiscoveryContract.P
     private static final int FINE_LOCATION_CODE = 1;
 
     private WifiManager wifiManager;
-    private DiscoveryManagerIfc.WifiPermissionHandlerListener wifiScanListener;
+    private WifiControllerIfc.WifiPermissionCallback wifiScanListener;
 
     @Nullable
     @Override
@@ -66,11 +67,11 @@ public class StepDiscoveryLayout extends SetupStepLayout<StepDiscoveryContract.P
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
-    public void requestWifiScanResult(final DiscoveryManagerIfc.WifiPermissionHandlerListener listener) {
+    public void requestWifiScanResult(final WifiControllerIfc.WifiPermissionCallback listener) {
         wifiScanListener = listener;
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -84,6 +85,11 @@ public class StepDiscoveryLayout extends SetupStepLayout<StepDiscoveryContract.P
         } else {
             wifiScanListener.onWifiScanResult(wifiManager.getScanResults());
         }
+    }
+
+    @Override
+    public WifiControllerIfc.WifiPermissionCallback requestWifiScanCallback() {
+        return presenter;
     }
 
     @Override

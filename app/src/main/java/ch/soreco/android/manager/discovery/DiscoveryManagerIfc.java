@@ -6,6 +6,7 @@ import android.net.wifi.WifiConfiguration;
 
 import java.util.List;
 
+import ch.soreco.android.manager.wifi.WifiControllerIfc;
 import ch.soreco.android.model.SorecoDeviceProfile;
 
 /**
@@ -16,7 +17,7 @@ public interface DiscoveryManagerIfc {
      * Search for soreco wifi SSID async.
      * @see Listener#onSorecoDevicesFound(List)
      */
-    void findSorecoDevicesAsync(final Listener listener, WifiPermissionHandler permissionHandler);
+    void findSorecoDevicesAsync(final Listener listener, WifiControllerIfc.WifiPermissionHandler permissionHandler);
 
     /**
      * Cancel async search.
@@ -33,13 +34,5 @@ public interface DiscoveryManagerIfc {
     interface Listener {
         void onSorecoDevicesFound(final List<SorecoDeviceProfile> devices);
         void onError(final Throwable throwable);
-    }
-
-    interface WifiPermissionHandler {
-        void requestWifiScanResult(final WifiPermissionHandlerListener listener);
-    }
-
-    interface WifiPermissionHandlerListener {
-        void onWifiScanResult(List<ScanResult> result);
     }
 }
