@@ -23,7 +23,7 @@ public class StepDiscoveryPresenter extends BasePresenter<StepDiscoveryContract.
 
         @Override
         public void onClick(View view) {
-            cancelDiscovery();
+            wizardPresenter.prevPage();
         }
     };
     private StepDiscoveryContract.View view;

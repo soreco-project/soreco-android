@@ -1,6 +1,7 @@
 package ch.soreco.android.ui.setup;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -54,15 +55,21 @@ public class SetupActivity extends BaseActivityView<SetupContract.Presenter> imp
 
             @Override
             public void onPageSelected(int position) {
-                SetupStepLayout page = wizardNavigator.getPage(lastPage);
+                SetupStepLayout currentPage = wizardNavigator.getPage(lastPage);
+                SetupStepLayout newPage;
                 // validation if next page
-                if (lastPage < position && !page.isValid()) {
+                if (lastPage < position && !currentPage.isValid()) {
                     wizardNavigator.setPage(lastPage);
                     return;
                 }
 
+                boolean forward = lastPage < position;
+                currentPage.onDeactivated(forward);
+
+                newPage = wizardNavigator.getPage(position);
+                newPage.onActivated();
+
                 lastPage = position;
-                wizardNavigator.getPage(position).onActivated();
             }
 
             @Override
@@ -82,6 +89,8 @@ public class SetupActivity extends BaseActivityView<SetupContract.Presenter> imp
 
                 currentStep.commit();
                 if (wizardNavigator.isLastPage() && currentStep.isValid()) {
+                    currentStep.onDeactivated(true);
+
                     presenter.finish();
                     return;
                 }
@@ -110,6 +119,11 @@ public class SetupActivity extends BaseActivityView<SetupContract.Presenter> imp
     @Override
     public void prevPage() {
         wizardNavigator.setPage(lastPage - 1);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

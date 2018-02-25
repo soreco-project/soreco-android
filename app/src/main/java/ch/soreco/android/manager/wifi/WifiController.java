@@ -58,7 +58,7 @@ public class WifiController implements WifiControllerIfc {
 
     @Override
     public boolean connectTo(WifiConfiguration config) {
-        return wifiManager.enableNetwork(config.networkId, false);
+        return wifiManager.enableNetwork(config.networkId, true);
     }
 
     @Override

@@ -13,7 +13,7 @@ public class SorecoDeviceProfile {
         this.configuration = configuration;
     }
 
-    public WifiConfiguration getConfiguration() {
+    public WifiConfiguration getHotspotConfig() {
         return configuration;
     }
 }

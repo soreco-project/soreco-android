@@ -15,7 +15,7 @@ public interface SorecoDeviceManagerIfc {
      * @param SSID
      * @param password
      */
-    void publishWifiConfig(String SSID, String password);
+    boolean publishWifiConfig(String SSID, String password);
 
     /**
      * Reset soreco device

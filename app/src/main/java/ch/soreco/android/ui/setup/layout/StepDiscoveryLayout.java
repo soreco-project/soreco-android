@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -56,6 +55,14 @@ public class StepDiscoveryLayout extends SetupStepLayout<StepDiscoveryContract.P
     public void onActivated() {
         super.onActivated();
         presenter.discoveryExecute();
+    }
+
+    @Override
+    public void onDeactivated(boolean forward) {
+        super.onDeactivated(forward);
+        if (!forward) {
+            presenter.cancelDiscovery();
+        }
     }
 
     @Override

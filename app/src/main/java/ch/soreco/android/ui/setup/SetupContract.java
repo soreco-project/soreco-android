@@ -17,6 +17,8 @@ public interface SetupContract {
 
         void nextPage();
         void prevPage();
+
+        void showMessage(String message);
     }
 
     interface Presenter extends PresenterIfc<View> {

@@ -72,9 +72,13 @@ public class SetupPresenter extends BasePresenter<SetupContract.View> implements
         deviceManager.initialize(device);
 
         String ssid = wifiConfiguration.SSID.replace("\"", "");
-        deviceManager.publishWifiConfig(ssid, password);
-        deviceManager.reset();
+        boolean isConnected = deviceManager.publishWifiConfig(ssid, password);
 
+        if (!isConnected) {
+            view.showMessage("Failed to configure sorego");
+        }
+
+        deviceManager.reset();
         navigator.navigateToHomeScreen();
     }
 
